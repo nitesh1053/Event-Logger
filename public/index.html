@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Event Handling Example</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <h1>Click the button</h1>
+  <button id="clickButton" onclick="triggerEvent('click')">Click Me!</button>
+
+  <script>
+    // Function to trigger the event on the server
+    
+    async function triggerEvent(eventName) {
+      const url = 'http://localhost:3000/trigger-event';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ eventName })
+      };
+      const response = await fetch(url, options);
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+        } else {
+          console.error('Request failed with status:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    }
+  </script>
+</body>
+
+</html>
